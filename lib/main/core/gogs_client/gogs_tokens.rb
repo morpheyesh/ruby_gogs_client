@@ -1,4 +1,3 @@
-
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,9 +12,8 @@
 # limitations under the License.
 #
 module Main
-  class GogsRepo
+  class GogsTokens
 
-    # Transform the ruby obj ->  to a Hash
     def self.to_hash(response)
       index_hash = []
       i = 0
@@ -30,24 +28,22 @@ module Main
       {:status => response.code, :body => index_hash, :some_msg => response.message }
     end
 
-
-    # Load a account by email_p
     def self.list(username, password)
-      #acct = self.new(username, password)
-        multilple_entries = Main::Gogs.new
-      res = multiple_entries.get_repos(username, password)
+
+      main = Main::Gogs.new
+      res = main.get_tokens(username, password)
       hash = {}
       if res.code != "200"
-         hash = self.error(res)
-       else
-         hash = self.to_hash(res)
+        hash = self.error(res)
+      else
+        hash = self.to_hash(res)
       end
       hash
     end
 
-   def self.error(response)
-     {:status => response.code, :body => "", :some_msg => response.message }
-   end
+    def self.error(response)
+      {:status => response.code, :body => "", :some_msg => response.message }
+    end
 
     def to_s
       Main::Stuff.styled_hash(to_hash)
