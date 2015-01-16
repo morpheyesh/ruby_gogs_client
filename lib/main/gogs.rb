@@ -12,11 +12,9 @@ $LOAD_PATH.unshift(__LIB_DIR__)
 end
 
 require "main/gogs/version"
-require "main/gogs/accounts"
-require "main/gogs/dumpout"
-require "main/gogs/errors"
 require "main/gogs/tokens"
 require "main/gogs/repos"
+require "main/gogs/account"
 require "main/core/gogs_client/gogs_repo"
 require "main/core/gogs_client/gogs_account"
 require "main/core/gogs_client/gogs_tokens"
@@ -38,7 +36,7 @@ module Main
     OPTIONS = {
       :headers => {},
       :host => 'localhost',
-      :port => '3000',
+      :port => '6001',
       :nonblock => false,
       :scheme => 'http'
     }
@@ -46,9 +44,9 @@ module Main
     API_REST = "/api/v1"
 
 
-    def text
-      @text ||= Main::Dumpout.new(STDOUT, STDERR, STDIN)
-    end
+    #def text
+    #  @text ||= Main::Dumpout.new(STDOUT, STDERR, STDIN)
+    #end
 
     def last_response
       @last_response
@@ -70,7 +68,7 @@ module Main
       }
 
 
-      text.msg "#{text.color("START", :cyan, :bold)}"
+      text.msg("#{text.color("START", :cyan, :bold)}")
       params.each do |pkey, pvalue|
         text.msg("> #{pkey}: #{pvalue}")
       end
@@ -137,7 +135,7 @@ module Main
           @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}",@options)
         else
           Excon.defaults[:ssl_verify_peer] = false
-          @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}:3000",@options)
+          @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}:6001",@options)
         end
         @connection
       end
@@ -165,7 +163,7 @@ module Main
             @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}",@options)
           else
             Excon.defaults[:ssl_verify_peer] = false
-            @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}:3000",@options)
+            @connection = Excon.new("#{@options[:scheme]}://#{@options[:host]}:6001",@options)
           end
           @connection
         end
