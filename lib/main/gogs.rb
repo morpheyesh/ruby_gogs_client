@@ -76,7 +76,6 @@ module Main
 
       if params[:token].nil?
 
-
         @uname = params[:username]
         @pass = params[:password]
         @cred = "#{@uname}:#{@pass}"

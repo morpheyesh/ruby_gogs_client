@@ -13,4 +13,15 @@ class TestGogs < MiniTest::Unit::TestCase
 
   end
 
+
+
+  def test_posttokens
+    name = "morpheyesh"
+    pass = "123456"
+    test_json = "{'name':'test_key'}"
+    response = multiple_entries.post_tokens(name, pass, test_json)
+    assert_raises(ArgumentError)
+
+  end
+
 end

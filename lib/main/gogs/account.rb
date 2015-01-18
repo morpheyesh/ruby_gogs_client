@@ -11,8 +11,18 @@ module Main
           :token => token,
           :body => @options[:body],
           )
+end
 
 
+  def post_account()
+    @option =  {:path => '',
+      :body => '' }.merge(@options)
+
+      request(
+      :expects  => 200,
+      :method   => :post,
+      :body     => @options[:body]
+      )
     end
 
   end
