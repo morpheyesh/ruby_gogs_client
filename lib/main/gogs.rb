@@ -15,6 +15,7 @@ require "main/gogs/version"
 require "main/gogs/tokens"
 require "main/gogs/repos"
 require "main/gogs/account"
+require "main/gogs/dumpout"
 require "main/core/gogs_client/gogs_repo"
 require "main/core/gogs_client/gogs_account"
 require "main/core/gogs_client/gogs_tokens"
@@ -44,9 +45,9 @@ module Main
     API_REST = "/api/v1"
 
 
-    #def text
-    #  @text ||= Main::Dumpout.new(STDOUT, STDERR, STDIN)
-    #end
+    def text
+      @text ||= Main::Dumpout.new(STDOUT, STDERR, STDIN)
+    end
 
     def last_response
       @last_response
